@@ -20,6 +20,7 @@ class CreateClienteTable extends Migration
             $table->string('apellido_materno', 20);
             $table->char('dni', 8);
             $table->string('celular', 9);
+            $table->string('direccion',50);
             $table->string('url_imagen',150);
             $table->timestamps();
         });

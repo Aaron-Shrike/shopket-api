@@ -32,6 +32,34 @@ class CategoriaProductoController extends Controller
         }
     }
 
+    public function ObtenerCategoriaProducto(Request $request)
+    {
+        try
+        {
+            $request->validate([
+                'codigo' => 'required',
+            ]);
+
+            $consulta = CategoriaProducto::select('codigo', 'nombre', 'vigente')
+                    ->where('codigo', '=', $request->codigo)
+                    ->first();
+            
+            $data = [
+                'error' => false,
+                'datos' => $consulta,
+                'mensaje' => ""
+            ];
+
+            return response($data);
+        }
+        catch (\Exception $ex) 
+        {
+            $data = $ex->getMessage();
+            
+            return response($data, 400);
+        }
+    }
+
     public function CrearCategoriaProducto(Request $request)
     {
         try

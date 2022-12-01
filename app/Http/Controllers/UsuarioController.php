@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Usuario;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -22,8 +23,8 @@ class UsuarioController extends Controller
             
             $data=array();
 
-            $consulta = Usuario::select('correo', 'contrasenia','tipo')
-                            ->where('correo','=',$request->dni)
+            $consulta = Usuario::select('codigo_cliente', 'correo', 'contrasenia','tipo')
+                            ->where('correo','=',$request->correo)
                             ->first();
 
             if(isset($consulta['correo']))
@@ -31,14 +32,15 @@ class UsuarioController extends Controller
                 if(Hash::check($request->contrasenia, $consulta['contrasenia']))
                 {
                     $consulta1 = 
-                        Cliente::select('codigo','nombre', 'apellido_paterno AS apellidoPaterno', 
+                        Cliente::select('nombre', 'apellido_paterno AS apellidoPaterno', 
                             'apellido_materno AS apellidoMaterno', 'dni', 'celular',
-                            'url_imagen')
-                        ->where('correo','=',$request->correo)
+                            'url_imagen as urlImagen')
+                        ->where('codigo','=',$consulta['codigo_cliente'])
                         ->where('vigente','=','1')
                         ->first();
 
-                    $consulta1[] = $consulta['tipo'];
+                    $consulta1['tipo'] = $consulta['tipo'];
+                    $consulta1['codigoCliente'] = $consulta['codigo_cliente'];
 
                     $data = [
                         'error' => false,
@@ -48,18 +50,20 @@ class UsuarioController extends Controller
                 }
                 else
                 {
-                    $data = [
-                        'error' => true,
-                        'mensaje' => "Credenciales incorrectas."
-                    ];
+                    throw new Exception('Credenciales incorrectas.');
+                    // $data = [
+                    //     'error' => true,
+                    //     'mensaje' => "Credenciales incorrectas."
+                    // ];
                 }
             }
             else
             {
-                $data = [
-                    'error' => false,
-                    'mensaje' => "Usuario no registrado."
-                ];
+                throw new Exception('Usuario no registrado.');
+                // $data = [
+                //     'error' => false,
+                //     'mensaje' => "Usuario no registrado."
+                // ];
             }
             
             return response($data);

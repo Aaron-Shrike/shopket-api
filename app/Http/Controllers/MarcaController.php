@@ -32,6 +32,34 @@ class MarcaController extends Controller
         }
     }
 
+    public function ObtenerMarca(Request $request)
+    {
+        try
+        {
+            $request->validate([
+                'codigo' => 'required',
+            ]);
+
+            $consulta = Marca::select('codigo', 'nombre', 'vigente')
+                    ->where('codigo', '=', $request->codigo)
+                    ->first();
+            
+            $data = [
+                'error' => false,
+                'datos' => $consulta,
+                'mensaje' => ""
+            ];
+
+            return response($data);
+        }
+        catch (\Exception $ex) 
+        {
+            $data = $ex->getMessage();
+            
+            return response($data, 400);
+        }
+    }
+
     public function CrearMarca(Request $request)
     {
         try

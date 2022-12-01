@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaProductoController;
+use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VentaController;
@@ -36,7 +37,7 @@ Route::post('/eliminar-usuario', [UsuarioController::class, 'EliminarUsuario']);
 Route::post('/productos', [ProductoController::class, 'ObtenerProductos']);
 Route::post('/producto', [ProductoController::class, 'ObtenerProducto']);
 Route::post('/registrar-producto', [ProductoController::class, 'CrearProducto']);
-Route::post('/actualizar-producto', [ProductoController::class, 'ModificarProducto']);
+Route::post('/modificar-producto', [ProductoController::class, 'ModificarProducto']);
 Route::post('/eliminar-producto', [ProductoController::class, 'EliminarProducto']);
 
 //Gestion de venta
@@ -47,13 +48,15 @@ Route::post('/registrar-venta', [VentaController::class, 'CrearVenta']);
 Route::post('/eliminar-venta', [VentaController::class, 'EliminarVenta']);
 
 //Gestion de categoria
-Route::post('/categorias-producto', [CategoriaProductoController::class, 'ObtenerCateoriasProducto']);
+Route::post('/categorias-producto', [CategoriaProductoController::class, 'ObtenerCategoriasProducto']);
+Route::post('/categoria-producto', [CategoriaProductoController::class, 'ObtenerCategoriaProducto']);
 Route::post('/registrar-categoria', [CategoriaProductoController::class, 'CrearCategoriaProducto']);
 Route::post('/modificar-categoria', [CategoriaProductoController::class, 'ModificarCategoriaProducto']);
 Route::post('/eliminar-categoria', [CategoriaProductoController::class, 'EliminarCategoriaProducto']);
 
 //Gestion de marca
-Route::post('/marcas', [CategoriaProductoController::class, 'ObtenerMarca']);
-Route::post('/registrar-marca', [CategoriaProductoController::class, 'CrearMarca']);
-Route::post('/modificar-marca', [CategoriaProductoController::class, 'ModificarMarca']);
-Route::post('/eliminar-marca', [CategoriaProductoController::class, 'EliminarMarca']);
+Route::post('/marcas', [MarcaController::class, 'ObtenerMarcas']);
+Route::post('/marca', [MarcaController::class, 'ObtenerMarca']);
+Route::post('/registrar-marca', [MarcaController::class, 'CrearMarca']);
+Route::post('/modificar-marca', [MarcaController::class, 'ModificarMarca']);
+Route::post('/eliminar-marca', [MarcaController::class, 'EliminarMarca']);

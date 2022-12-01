@@ -21,7 +21,8 @@ class ClienteSeeder extends Seeder
         $obj->apellido_materno = "Vera";
         $obj->dni = "73976770";
         $obj->celular = "978488529";
-        $obj->url_imagen = "imagen.jpg";
+        $obj->direccion = "asentito";
+        $obj->url_imagen = "https://via.placeholder.com/200x200.png/00bbee?text=cats+assumenda";
         $obj->vigente = 1;
         $obj->save();
     }

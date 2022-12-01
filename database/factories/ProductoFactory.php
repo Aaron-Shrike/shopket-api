@@ -17,7 +17,7 @@ class ProductoFactory extends Factory
             //
             'nombre' => $this->faker->sentence(6, false),
             'presentacion' => $this->faker->text(15),
-            'url_imagen' => $this->faker->imageUrl($width = 640, $height = 480, 'cats'),
+            'url_imagen' => $this->faker->imageUrl($width = 200, $height = 200, 'cats'),
             'precio' => $this->faker->randomFloat(2,5,20000),
             'igv' => $this->faker->randomFloat(2,6,18),
             'afecta_igv' => $this->faker->boolean(),

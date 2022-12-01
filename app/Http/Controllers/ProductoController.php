@@ -41,7 +41,8 @@ class ProductoController extends Controller
             ]);
 
             $consulta = Producto::select('codigo', 'nombre', 'presentacion', 'url_imagen as urlImagen', 
-                    'precio', 'igv', 'afecta_igv as afectaIgv', 'stock')
+                    'precio', 'igv', 'afecta_igv as afectaIgv', 'stock', 'stock_minimo as stockMinimo',
+                    'codigo_marca as marca', 'codigo_categoria as categoria', 'vigente')
                     ->where('vigente', '=', 1)
                     ->first();
             
@@ -68,7 +69,7 @@ class ProductoController extends Controller
             $request->validate([
                 'nombre' => 'required',
                 'presentacion' => 'required',
-                // 'imagen' => 'required',
+                'urlImagen' => 'required',
                 'precio' => 'required',
                 'igv' => 'required',
                 'afectaIgv' => 'required',
@@ -81,6 +82,7 @@ class ProductoController extends Controller
             $obj = new Producto();
             $obj->nombre = $request->nombre;
             $obj->presentacion = $request->presentacion;
+            $obj->url_imagen = $request->urlImagen;
             $obj->precio = $request->precio;
             $obj->igv = $request->igv;
             $obj->afecta_igv = $request->afectaIgv;
@@ -114,7 +116,7 @@ class ProductoController extends Controller
                 'codigo' => 'required',
                 'nombre' => 'required',
                 'presentacion' => 'required',
-                // 'imagen' => 'required',
+                'urlImagen' => 'required',
                 'precio' => 'required',
                 'igv' => 'required',
                 'afectaIgv' => 'required',
@@ -126,6 +128,7 @@ class ProductoController extends Controller
             $consulta = Producto::where('codigo', '=', $request->codigo)->first();
             $consulta->nombre = $request->nombre;
             $consulta->presentacion = $request->presentacion;
+            $consulta->url_imagen = $request->urlImagen;
             $consulta->precio = $request->precio;
             $consulta->igv = $request->igv;
             $consulta->afecta_igv = $request->afectaIgv;
